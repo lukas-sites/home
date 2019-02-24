@@ -1,0 +1,30 @@
+version: "3"
+services:
+  reverse-proxy:
+    image: traefik
+    command: --api --docker
+    environment:
+      - CLOUDFLARE_API_KEY=${CLOUDFLARE_API_KEY}
+      - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
+    expose:
+      - "8080"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/etc/traefik/traefik.toml
+    restart: on-failure
+    labels:
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:monitor.lukas-coding.us"
+  ci:
+    image: lherman/jenkins
+    expose:
+      - "8080"
+    volumes:
+      - ./jenkins:/root/.jenkins
+    restart: on-failure
+    labels:
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:ci.lukas-coding.us"
