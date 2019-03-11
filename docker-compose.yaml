@@ -65,3 +65,12 @@ services:
     labels:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:ocr.lukas-coding.us"
+
+  review:
+    image: lherman/review
+    restart: on-failure
+    expose:
+      - "8000"
+    labels:
+      - "traefik.port=8000"
+      - "traefik.frontend.rule=Host:review.lukas-coding.us"
