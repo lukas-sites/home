@@ -19,6 +19,9 @@ services:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:monitor.lukas-coding.us"
   ci:
+    build:
+      context: ./dockerfiles
+      dockerfile: jenkins.Dockerfile
     image: lherman/jenkins
     expose:
       - "8080"
