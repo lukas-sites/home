@@ -12,7 +12,9 @@ RUN apk add --no-cache\
 	make \
 	curl \
 	tar \
-	openssh-client
+	openssh-client \
+	docker \
+	bash
 
 VOLUME ["/root/.jenkins"]
 EXPOSE 8080
