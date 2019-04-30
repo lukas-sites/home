@@ -18,6 +18,17 @@ services:
     labels:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:monitor.lukas-coding.us"
+  manager:
+    image: portainer/portainer
+    expose:
+      - "9000"
+    volumes:
+      - ./portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    labels:
+      - "traefik.port=9000"
+      - "traefik.frontend.rule=Host:manager.lukas-coding.us"
   ci:
     build:
       context: ./dockerfiles
